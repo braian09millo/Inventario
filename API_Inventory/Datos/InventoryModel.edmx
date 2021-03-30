@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="InventarioModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="LISTA">
+          <Key>
+            <PropertyRef Name="ListaID" />
+          </Key>
+          <Property Name="ListaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="FechaTerminacion" Type="datetime" />
+          <Property Name="Supermercado" Type="varchar" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="LISTA_DETALLE">
+          <Key>
+            <PropertyRef Name="IDLista" />
+            <PropertyRef Name="IDProducto" />
+          </Key>
+          <Property Name="IDLista" Type="int" Nullable="false" />
+          <Property Name="IDProducto" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PRODUCTO">
+          <Key>
+            <PropertyRef Name="ProductoID" />
+          </Key>
+          <Property Name="ProductoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar(max)" />
+        </EntityType>
+        <Association Name="FK__LISTA_DET__IDLis__31EC6D26">
+          <End Role="LISTA" Type="Self.LISTA" Multiplicity="1" />
+          <End Role="LISTA_DETALLE" Type="Self.LISTA_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LISTA">
+              <PropertyRef Name="ListaID" />
+            </Principal>
+            <Dependent Role="LISTA_DETALLE">
+              <PropertyRef Name="IDLista" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LISTA_DET__IDPro__32E0915F">
+          <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="1" />
+          <End Role="LISTA_DETALLE" Type="Self.LISTA_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCTO">
+              <PropertyRef Name="ProductoID" />
+            </Principal>
+            <Dependent Role="LISTA_DETALLE">
+              <PropertyRef Name="IDProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="InventarioModelStoreContainer">
+          <EntitySet Name="LISTA" EntityType="Self.LISTA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LISTA_DETALLE" EntityType="Self.LISTA_DETALLE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRODUCTO" EntityType="Self.PRODUCTO" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__LISTA_DET__IDLis__31EC6D26" Association="Self.FK__LISTA_DET__IDLis__31EC6D26">
+            <End Role="LISTA" EntitySet="LISTA" />
+            <End Role="LISTA_DETALLE" EntitySet="LISTA_DETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LISTA_DET__IDPro__32E0915F" Association="Self.FK__LISTA_DET__IDPro__32E0915F">
+            <End Role="PRODUCTO" EntitySet="PRODUCTO" />
+            <End Role="LISTA_DETALLE" EntitySet="LISTA_DETALLE" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="InventarioModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="InventarioEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="LISTA" EntityType="InventarioModel.LISTA" />
+          <EntitySet Name="PRODUCTO" EntityType="InventarioModel.PRODUCTO" />
+          <AssociationSet Name="LISTA_DETALLE" Association="InventarioModel.LISTA_DETALLE">
+            <End Role="LISTA" EntitySet="LISTA" />
+            <End Role="PRODUCTO" EntitySet="PRODUCTO" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="LISTA">
+          <Key>
+            <PropertyRef Name="ListaID" />
+          </Key>
+          <Property Name="ListaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FechaTerminacion" Type="DateTime" Precision="3" />
+          <Property Name="Supermercado" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PRODUCTO" Relationship="InventarioModel.LISTA_DETALLE" FromRole="LISTA" ToRole="PRODUCTO" />
+        </EntityType>
+        <EntityType Name="PRODUCTO">
+          <Key>
+            <PropertyRef Name="ProductoID" />
+          </Key>
+          <Property Name="ProductoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="LISTA" Relationship="InventarioModel.LISTA_DETALLE" FromRole="PRODUCTO" ToRole="LISTA" />
+        </EntityType>
+        <Association Name="LISTA_DETALLE">
+          <End Type="InventarioModel.LISTA" Role="LISTA" Multiplicity="*" />
+          <End Type="InventarioModel.PRODUCTO" Role="PRODUCTO" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="InventarioModelStoreContainer" CdmEntityContainer="InventarioEntities">
+          <EntitySetMapping Name="LISTA">
+            <EntityTypeMapping TypeName="InventarioModel.LISTA">
+              <MappingFragment StoreEntitySet="LISTA">
+                <ScalarProperty Name="Supermercado" ColumnName="Supermercado" />
+                <ScalarProperty Name="FechaTerminacion" ColumnName="FechaTerminacion" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="ListaID" ColumnName="ListaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRODUCTO">
+            <EntityTypeMapping TypeName="InventarioModel.PRODUCTO">
+              <MappingFragment StoreEntitySet="PRODUCTO">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="ProductoID" ColumnName="ProductoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="LISTA_DETALLE" TypeName="InventarioModel.LISTA_DETALLE" StoreEntitySet="LISTA_DETALLE">
+            <EndProperty Name="PRODUCTO">
+              <ScalarProperty Name="ProductoID" ColumnName="IDProducto" />
+            </EndProperty>
+            <EndProperty Name="LISTA">
+              <ScalarProperty Name="ListaID" ColumnName="IDLista" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

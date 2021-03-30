@@ -1,0 +1,55 @@
+﻿body {
+    background-color: aliceblue;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 14px;
+}
+
+#mainContainer {
+    margin-top: 40px;
+}
+
+.form-control {
+    border: 2px solid #000 !important;
+    transition: 1s;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border: 2px solid cornflowerblue !important;
+}
+
+.form-group {
+    margin-bottom: 5px !important;
+}
+
+#mainPanel {
+    box-shadow: 0px 7px 10px 0px grey;
+}
+
+#mainPanel > .panel-body {
+    max-height: 745px;
+    overflow: auto;
+}
+
+.btn-inverse {
+    background-color: #635c5c;
+    border-color: #635c5c;
+    color: #fff;
+}
+
+.btn-inverse:hover {
+    background-color: #524d4d;
+    color: #fff;
+}
+
+.btn {
+    border: none;
+}
+
+.inputCantidad {
+    text-align: right;
+}
+
+hr {
+    border-color: #bbb;
+}

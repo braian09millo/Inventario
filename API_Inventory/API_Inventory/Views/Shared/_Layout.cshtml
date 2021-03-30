@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/bundles/font-awesome/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/app")
+    @Scripts.Render("~/bundles/font-awesome/js")
+    @RenderSection("scripts", required: false)
+
+
+    @* HEADER *@
+    <div class="row">
+        <div class="col-sm-12">
+            @Html.Partial("Navbar")
+        </div>
+    </div>
+
+    <div id="mainContainer" class="container">
+        @RenderBody()
+    </div>
+
+    <script type="text/javascript">
+
+        var arrProductos = [];
+
+    </script>
+
+</body>
+</html>

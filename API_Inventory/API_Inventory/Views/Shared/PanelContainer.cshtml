@@ -1,0 +1,64 @@
+﻿<div id="mainPanel" class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-horizontal" id="formBody">
+            <div class="form-group">
+                <div class="col-sm-8 col-xs-6">
+                    <div class="ui-widget">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-addon" id="basic-addon1"><i class="fas fa-barcode"></i></span>
+                            <input type="text" class="form-control inputProducto" placeholder="Producto" id="txtProducto" aria-describedby="basic-addon1" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2 col-xs-3">
+                    <input type="text" class="form-control input-lg inputCantidad" placeholder="Cantidad" id="txtCantidad" />
+                </div>
+                <div class="col-sm-2 col-xs-2">
+                    <button class="btn btn-success btn-lg btn-add" onclick="agregarItem()"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="pull-right">
+                    <button class="btn btn-inverse btn-lg" onclick="guardarBorrador()">Guardar Borrador</button>
+                    <button class="btn btn-success btn-lg" onclick="confirmarLista()">Confirmar Lista</button>
+                    <button class="btn btn-primary btn-lg" onclick="imprimirLista()">Imprimir Lista</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        cargarProductos('LM');
+    });
+
+    function imprimirLista() {
+
+        var items = [];
+        var formGroupElements = $('#formBody > .form-group');
+
+        for (var i = 0; i < formGroupElements.length; i++) {
+
+            let formGroup = formGroupElements[i];
+            let NombreProducto = $(formGroup).find('.inputProducto').val();
+            let CantidadProducto = $(formGroup).find('.inputCantidad').val();
+            let productObj = {
+                Nombre: NombreProducto,
+                Cantidad: CantidadProducto
+            };
+
+            items.push(productObj);
+        }
+
+        let url = '@Url.Action("ImprimirLista", "Home")?xoItems=' + JSON.stringify(items);
+        window.open(url, '_blank');
+
+    }
+
+</script>
