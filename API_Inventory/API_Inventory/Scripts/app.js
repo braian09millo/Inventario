@@ -1,4 +1,8 @@
-﻿function cargarProductos(origen) {
+﻿//VARIABLES GLOBALES
+var accion;
+
+//AJAX CALLS
+function cargarProductos(origen) {
 
     $.ajax({
 
@@ -13,7 +17,7 @@
             switch (origen) {
 
                 case 'LM':
-                    $('.inputProducto').autocomplete({ source: arrProductos });
+                    $('.inputProducto').autocomplete({ source: arrProductos.map(x => x.Descripcion) });
                     break;
                 case 'P':
                     inicializarListaProductos();
@@ -23,6 +27,32 @@
     });
 }
 
+function guardarProducto() {
+
+    let xoProducto = {
+        ProductoID: accion === 'E' ? parseInt($('#txtID').val()) : 0,
+        Descripcion: $('#txtDescripcion').val().toUpperCase()
+    }
+
+    $.ajax({
+
+        method: 'POST',
+        url: '/api/Producto/AddProducto',
+        data: xoProducto,
+        success: function (result) {
+
+            limpiarDatos();
+            $('#modalProducto').modal('hide');
+        },
+        complete: function (result) {
+
+            cargarProductos('P');
+        }
+    });
+
+}
+
+ //LISTA DE MERCADO METODOS
 function agregarItem() {
 
     var html = '<div class="form-group">' +
@@ -50,6 +80,7 @@ function eliminarItem(element) {
     $(formGroupParent).remove();
 }
 
+//PRODUCTOS
 function inicializarListaProductos() {
 
     var tbodyProductos = $('#tblProductos > tbody');    
@@ -58,8 +89,54 @@ function inicializarListaProductos() {
     for (var i = 0; i < arrProductos.length; i++) {
 
         let producto = arrProductos[i];
-        html += '<tr><td>' + producto + '</td><td><button class="btn btn-info btn-sm" title="Editar"><i class="fas fa-pencil-alt"></i></button> <button class="btn btn-danger btn-sm" title="Eliminar"><i class="fas fa-trash-alt"></i></button></td></tr>';
+        html += '<tr data-id="' + producto.ProductoID + '" data-desc="' + producto.Descripcion + '"><td>' + producto.Descripcion + '</td><td><button class="btn btn-info btn-sm" onclick="editarProducto(this)" title="Editar"><i class="fas fa-pencil-alt"></i></button> <button class="btn btn-danger btn-sm" title="Eliminar" onclick="eliminarProducto(this)"><i class="fas fa-trash-alt"></i></button></td></tr>';
     }
 
-    tbodyProductos.append(html);
+    tbodyProductos.empty().append(html);
 }
+
+function limpiarDatos() {
+
+    $('#txtID').val('');
+    $('#txtDescripcion').val('');
+}
+
+function abrirModalProducto(xsAccion) {
+
+    accion = xsAccion;
+    $('#modalProducto').modal('show');
+}
+
+function editarProducto(element) {
+
+    var rowParent = $(element).parent().parent();
+    $('#txtID').val($(rowParent).data('id'));
+    $('#txtDescripcion').val($(rowParent).data('desc'));
+    abrirModalProducto('E');
+
+}
+
+function eliminarProducto(element) {
+
+    var rowParent = $(element).parent().parent();
+    let xoProducto = {
+        ProductoID: parseInt($(rowParent).data('id')),
+        Descripcion: $(rowParent).data('desc')
+    }
+    
+    $.ajax({
+
+        method: 'POST',
+        url: '/api/Producto/DeleteProducto',
+        data: xoProducto,
+        success: function (result) {
+            console.log(result);
+        },
+        complete: function (result) {
+
+            cargarProductos('P');
+        }
+    });
+
+}
+

@@ -6,10 +6,37 @@
 
 <h2 class="text-center">PRODUCTOS</h2>
 <hr />
-
+<div class="row">
+    <div class="col-sm-12">
+        <button class="btn btn-success" onclick="abrirModalProducto('A')">Agregar Producto</button>
+    </div>
+</div>
+<br />
 <div class="row">
     <div class="col-sm-12">
         @Html.Partial("ProductoPanel")
     </div>
 </div>
 
+<div class="modal fade" id="modalProducto" tabindex="-1" role="dialog" aria-labelledby="lblModalProducto">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="limpiarDatos()"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="lblModalProducto">AGREGAR PRODUCTO</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <input type="hidden" class="form-control" id="txtID" placeholder="ID Producto" />
+                        <input type="text" class="form-control" id="txtDescripcion" placeholder="Producto"/>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="guardarProducto()">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="limpiarDatos()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
