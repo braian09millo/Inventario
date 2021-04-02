@@ -11,7 +11,8 @@ body {
 }
 
 .form-control {
-    border: 2px solid #000 !important;
+    border: 2px solid #bbb !important;
+    font-size: 15px !important;
     transition: 1s;
 }
 
