@@ -49,29 +49,60 @@ function guardarProducto() {
             cargarProductos('P');
         }
     });
+}
+
+function guardarProductoDesdeLista(elemento) {
+
+    let inputValor = $(elemento).parent().parent().find('.inputProducto').val().toUpperCase();
+
+    console.log(inputValor);
+
+    let xoProducto = {
+        ProductoID: 0,
+        Descripcion: inputValor
+    }
+
+    $.ajax({
+
+        method: 'POST',
+        url: '/api/Producto/AddProducto',
+        data: xoProducto,
+        success: function (result) {
+
+            limpiarDatos();
+            $('#modalProducto').modal('hide');
+        },
+        complete: function (result) {
+
+            cargarProductos('LM');
+        }
+    });
 
 }
+
 
  //LISTA DE MERCADO METODOS
 function agregarItem() {
 
     var html = '<div class="form-group">' +
         '<div class="col-sm-8 col-xs-6">' +
-        '<div class="input-group input-group-lg">' +
+        '<div class="input-group">' +
         '<span class="input-group-addon" id="basic-addon1"><i class="fas fa-barcode"></i></span>' +
-        '<input type="text" class="form-control inputProducto" placeholder="Producto" id="txtProducto" aria-describedby="basic-addon1" />' +
+        '<input type="text" class="form-control inputProducto" placeholder="Producto" aria-describedby="basic-addon1" />' +
         '</div>' +
         '</div >' +
         '<div class="col-sm-2 col-xs-3">' +
-        '<input type="text" class="form-control input-lg inputCantidad" placeholder="Cantidad" id="txtCantidad"/>' +
+        '<input type="text" class="form-control inputCantidad" placeholder="Cantidad" />' +
         '</div>' +
         '<div class="col-sm-2 col-xs-3">' +
-        '<button class="btn btn-success btn-lg btn-add" onclick="agregarItem()"><i class="fas fa-plus"></i></button> ' +
-        '<button class="btn btn-danger btn-lg" onclick="eliminarItem(this)"><i class="fas fa-trash"></i></button>' +
+        '<button class="btn btn-success btn-add" onclick="agregarItem()"><i class="fas fa-plus"></i></button> ' +
+        '<button class="btn btn-danger btnAddProducto" onclick="guardarProductoDesdeLista(this)" title="Agregar producto nuevo"><i class="fas fa-cart-plus"></i></button> ' +
+        '<button class="btn btn-danger" onclick="eliminarItem(this)"><i class="fas fa-trash"></i></button>' + 
         '</div>' +
-        '</div>'
+        '</div>' +
+        '<script>$(".inputProducto").autocomplete({ source: arrProductos.map(x => x.Descripcion) });</script>'
 
-    $('#formBody').append(html);
+    $('#formBody').append(html);    
 }
 
 function eliminarItem(element) {
@@ -137,6 +168,4 @@ function eliminarProducto(element) {
             cargarProductos('P');
         }
     });
-
 }
-

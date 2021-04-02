@@ -4,17 +4,18 @@
             <div class="form-group">
                 <div class="col-sm-8 col-xs-6">
                     <div class="ui-widget">
-                        <div class="input-group input-group-lg">
+                        <div class="input-group">
                             <span class="input-group-addon" id="basic-addon1"><i class="fas fa-barcode"></i></span>
-                            <input type="text" class="form-control inputProducto" placeholder="Producto" id="txtProducto" aria-describedby="basic-addon1" />
+                            <input type="text" class="form-control inputProducto" placeholder="Producto" aria-describedby="basic-addon1" required />
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-2 col-xs-3">
-                    <input type="text" class="form-control input-lg inputCantidad" placeholder="Cantidad" id="txtCantidad" />
+                    <input type="text" class="form-control inputCantidad" placeholder="Cantidad" />
                 </div>
                 <div class="col-sm-2 col-xs-2">
-                    <button class="btn btn-success btn-lg btn-add" onclick="agregarItem()"><i class="fas fa-plus"></i></button>
+                    <button class="btn btn-success btn-add" onclick="agregarItem()" title="Agregar item"><i class="fas fa-plus"></i></button>
+                    <button class="btn btn-danger btnAddProducto" onclick="guardarProductoDesdeLista(this)" title="Agregar producto nuevo"><i class="fas fa-cart-plus"></i></button>
                 </div>
             </div>
         </div>
@@ -23,9 +24,9 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="pull-right">
-                    <button class="btn btn-inverse btn-lg" onclick="guardarBorrador()">Guardar Borrador</button>
-                    <button class="btn btn-success btn-lg" onclick="confirmarLista()">Confirmar Lista</button>
-                    <button class="btn btn-primary btn-lg" onclick="imprimirLista()">Imprimir Lista</button>
+                    <button class="btn btn-inverse" onclick="guardarBorrador()">Guardar Borrador</button>
+                    <button class="btn btn-success" onclick="confirmarLista()">Confirmar Lista</button>
+                    <button class="btn btn-primary" onclick="imprimirLista()">Imprimir Lista</button>
                 </div>
             </div>
         </div>
