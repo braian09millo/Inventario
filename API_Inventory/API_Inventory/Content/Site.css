@@ -1,7 +1,9 @@
-﻿body {
+﻿* {
+    font-family: 'Varela Round', sans-serif !important;
+}
+
+body {
     background-color: aliceblue;
-    font-family: 'Quicksand', sans-serif;
-    font-size: 14px;
 }
 
 #mainContainer {
