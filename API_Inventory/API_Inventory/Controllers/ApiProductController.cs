@@ -18,7 +18,7 @@ namespace API_Inventory.Controllers
         [Route("api/Producto/GetProductos")]
         public List<PRODUCTO> GetProductos()
         {
-            var loListaProductos = BDEntities.PRODUCTO.ToList();
+            var loListaProductos = BDEntities.PRODUCTO.OrderBy(x => x.Descripcion).ToList();
             return loListaProductos;
         }
 
