@@ -30,7 +30,7 @@ body {
 }
 
 #mainPanel > .panel-body {
-    max-height: 745px;
+    max-height: 655px;
     overflow: auto;
 }
 
