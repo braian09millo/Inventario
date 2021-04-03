@@ -1,5 +1,28 @@
 ﻿<div id="mainPanel" class="panel panel-default">
     <div class="panel-body">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="col-sm-4 col-xs-6">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1"><i class="fas fa-cart-plus"></i></span>
+                        <input type="text" class="form-control" placeholder="Supermercado" aria-describedby="basic-addon1" id="txtSupermercado" required />
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-6">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1"><i class="fas fa-dollar-sign"></i></span>
+                        <input type="text" class="form-control" placeholder="Gasto total" aria-describedby="basic-addon1" id="txtGasto" required />
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-6">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1"><i class="far fa-calendar-alt"></i></span>
+                        <input type="text" class="form-control" placeholder="Fecha" aria-describedby="basic-addon1" id="txtFecha" required />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
         <div class="form-horizontal" id="formBody">
             <div class="form-group">
                 <div class="col-sm-8 col-xs-6">
@@ -37,6 +60,7 @@
 
     $(document).ready(function () {
         cargarProductos('LM');
+        $('#txtFecha').datepicker();
     });
 
     function imprimirLista() {
